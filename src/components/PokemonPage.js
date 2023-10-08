@@ -22,8 +22,20 @@ function PokemonPage() {
     setPokemonFilter(searchValue)
   }
 
+  function addPokemon(newPokemon) {
+    fetch(pokemonAPI, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newPokemon)
+    })
+    .then(response => response.json())
+    .then(() => fetchPokemon())
+  }
+
   const searchedPokemon = allPokemon.filter((pokemon) => {
-    if (pokemon.name.includes(pokemonFilter.toLowerCase())) {
+    if (pokemon.name.startsWith(pokemonFilter.toLowerCase())) {
       return true
     }
   })
@@ -32,7 +44,7 @@ function PokemonPage() {
     <Container>
       <h1>Pokemon Searcher</h1>
       <br />
-      <PokemonForm />
+      <PokemonForm addPokemon={addPokemon} />
       <br />
       <Search pokemonFilter={pokemonFilter} handlePokemonFilter={handlePokemonFilter} />
       <br />

@@ -1,7 +1,6 @@
-import React, {useState} from "react";
+import React from "react";
 
 function Search({pokemonFilter, handlePokemonFilter}) {
-  // const [pokemonFilter, setPokemonFilter] = useState("");
 
   function handleChange(event) {
     handlePokemonFilter(event.target.value)
