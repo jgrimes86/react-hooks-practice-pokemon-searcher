@@ -2,9 +2,9 @@ import React from "react";
 import PokemonCard from "./PokemonCard";
 import { Card } from "semantic-ui-react";
 
-function PokemonCollection({allPokemon}) {
+function PokemonCollection({displayedPokemon}) {
 
-  const pokemonIndex = allPokemon.map((pokemon) => {
+  const pokemonIndex = displayedPokemon.map((pokemon) => {
     return <PokemonCard key={pokemon.id} pokemon={pokemon} />
   })
 

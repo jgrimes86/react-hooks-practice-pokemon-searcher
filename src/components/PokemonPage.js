@@ -5,7 +5,8 @@ import Search from "./Search";
 import { Container } from "semantic-ui-react";
 
 function PokemonPage() {
-  const [allPokemon, setAllPokemon] = useState([])
+  const [allPokemon, setAllPokemon] = useState([]);
+  const [pokemonFilter, setPokemonFilter] = useState("");
 
   const pokemonAPI = "http://localhost:3001/pokemon"
 
@@ -14,8 +15,18 @@ function PokemonPage() {
   function fetchPokemon() {
     fetch(pokemonAPI)
     .then(response => response.json())
-    .then(data => setAllPokemon(data))
+    .then(data => {setAllPokemon(data)})
   }
+
+  function handlePokemonFilter(searchValue) {
+    setPokemonFilter(searchValue)
+  }
+
+  const searchedPokemon = allPokemon.filter((pokemon) => {
+    if (pokemon.name.includes(pokemonFilter.toLowerCase())) {
+      return true
+    }
+  })
 
   return (
     <Container>
@@ -23,9 +34,9 @@ function PokemonPage() {
       <br />
       <PokemonForm />
       <br />
-      <Search />
+      <Search pokemonFilter={pokemonFilter} handlePokemonFilter={handlePokemonFilter} />
       <br />
-      <PokemonCollection allPokemon={allPokemon} />
+      <PokemonCollection displayedPokemon={searchedPokemon} />
     </Container>
   );
 }
